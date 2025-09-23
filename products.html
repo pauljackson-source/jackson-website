@@ -5,60 +5,69 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Jackson Scales — Products & Calculator</title>
   <meta name="description" content="Products catalog — Jackson Scales. Browse bench scales, platform scales and calculate price instantly." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --accent:#0f62fe;
-      --muted:#555;
+    :root {
+      --accent:#0b63ff;
+      --accent-dark:#084fc4;
+      --muted:#6d6d72;
+      --bg:#f3f6fb;
       --card:#fff;
-      --bg:#f6f8fb;
-      --radius:12px;
-      --container:1100px;
+      --radius:14px;
+      --shadow:0 10px 30px rgba(16,24,40,0.06);
+      --maxw:1100px;
     }
     *{box-sizing:border-box}
-    body{margin:0;font-family:Inter, system-ui, Arial;background:var(--bg);color:#111}
-    .wrap{max-width:var(--container);margin:18px auto;padding:16px}
-    header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-    .logo{width:64px;height:64px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(10,20,40,.06)}
-    h1{margin:0;font-size:20px}
-    .top-actions{margin-left:auto;display:flex;gap:8px}
-    .btn{display:inline-block;padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:700}
+    body{margin:0;font-family:Inter,system-ui,Arial;background:var(--bg);color:#111}
+    .wrap{max-width:var(--maxw);margin:28px auto;padding:18px}
+
+    /* Header */
+    header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+    .logo{width:64px;height:64px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--muted);box-shadow:var(--shadow)}
+    h1{margin:0;font-size:22px;font-weight:800}
+    .tag{color:var(--muted);font-size:13px}
+    .top-actions{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap}
+    .btn{display:inline-block;padding:8px 14px;border-radius:8px;text-decoration:none;font-weight:700;transition:background .2s}
     .btn-primary{background:var(--accent);color:#fff}
+    .btn-primary:hover{background:var(--accent-dark)}
     .btn-light{background:#eee;color:#222}
+    .btn-light:hover{background:#ddd}
 
-    /* category header */
-    .cat-header{display:flex;align-items:center;gap:12px;margin-top:18px;margin-bottom:10px}
-    .cat-title{font-size:18px;font-weight:800}
+    /* Categories */
+    .cat-header{margin-top:28px;margin-bottom:12px}
+    .cat-title{font-size:18px;font-weight:800;margin-bottom:4px}
 
-    /* grid */
-    .grid{display:grid;grid-template-columns:repeat(1,1fr);gap:12px}
-    @media(min-width:640px){ .grid{grid-template-columns:repeat(2,1fr)} }
-    @media(min-width:980px){ .grid{grid-template-columns:repeat(4,1fr)} }
+    /* Product grid */
+    .grid{display:grid;grid-template-columns:repeat(1,1fr);gap:16px}
+    @media(min-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media(min-width:980px){.grid{grid-template-columns:repeat(4,1fr)}}
 
-    .card{background:var(--card);padding:12px;border-radius:10px;box-shadow:0 6px 18px rgba(10,20,40,.04);display:flex;flex-direction:column;gap:10px;min-height:320px}
-    .img-wrap{height:140px;background:#fafafa;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .card{background:var(--card);padding:14px;border-radius:var(--radius);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;min-height:320px;transition:transform .2s}
+    .card:hover{transform:translateY(-3px)}
+    .img-wrap{height:140px;background:#fafafa;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden}
     .img-wrap img{max-width:100%;max-height:100%;object-fit:contain;display:block}
-    .prod-name{font-weight:800;font-size:14px}
+    .prod-name{font-weight:800;font-size:15px}
     .spec{color:var(--muted);font-size:13px}
-    .price{font-weight:800;margin-top:6px}
+    .price{font-weight:800;margin-top:6px;font-size:15px}
     .controls{display:flex;gap:8px;align-items:center;margin-top:8px}
     input.qty{width:68px;padding:6px;border-radius:6px;border:1px solid #ddd}
 
-    /* thumbnails */
+    /* Thumbnails */
     .thumbs{display:flex;gap:6px;margin-top:8px}
     .thumbs img{width:46px;height:40px;object-fit:cover;border-radius:6px;cursor:pointer;border:2px solid transparent}
     .thumbs img.active{border-color:var(--accent)}
 
-    /* calculator */
-    .calc{position:sticky;top:16px;background:#fff;padding:14px;border-radius:10px;border:1px solid #eee;box-shadow:0 6px 18px rgba(10,20,40,.04)}
-    .calc .line{display:flex;justify-content:space-between;margin:8px 0}
-    .page-grid{display:grid;grid-template-columns:1fr;gap:12px}
-    @media(min-width:980px){ .page-grid{grid-template-columns:2fr 360px} }
+    /* Page grid */
+    .page-grid{display:grid;grid-template-columns:1fr;gap:16px}
+    @media(min-width:980px){.page-grid{grid-template-columns:2fr 360px}}
 
-    /* small form */
-    form{background:#fff;padding:12px;border-radius:10px;border:1px solid #eee}
-    textarea{width:100%;min-height:80px;padding:8px;border-radius:6px;border:1px solid #ddd}
+    /* Calculator */
+    .calc{position:sticky;top:16px;background:#fff;padding:16px;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .calc h3{margin:0 0 10px;font-size:18px}
+    .calc .line{display:flex;justify-content:space-between;margin:6px 0;font-size:14px}
+    .calc strong{font-size:15px}
 
-    footer{margin-top:18px;color:var(--muted);text-align:center}
+    footer{margin-top:24px;color:var(--muted);text-align:center;font-size:14px}
   </style>
 </head>
 <body>
@@ -67,75 +76,60 @@
       <div class="logo">JS</div>
       <div>
         <h1>Jackson Scales — Products</h1>
-        <div style="color:var(--muted);font-size:13px">Pick models, set quantities and calculate your total instantly</div>
+        <div class="tag">Pick models, set quantities and calculate your total instantly</div>
       </div>
-
       <div class="top-actions">
-        <a class="btn btn-light" href="index.html">Back to Dashboard</a>
+        <a class="btn btn-light" href="index.html">Back</a>
         <a id="whatsappTop" class="btn btn-primary" href="#" target="_blank">Order via WhatsApp</a>
       </div>
     </header>
 
     <div class="page-grid">
-      <!-- PRODUCTS LIST -->
+      <!-- PRODUCTS -->
       <main>
         <!-- Category: 10-20kg -->
-        <section id="cat-10-20">
+        <section>
           <div class="cat-header">
             <div class="cat-title">10 — 20 kg Scales</div>
-            <div style="color:var(--muted);font-size:13px">Domestic & Commercial bench scales</div>
+            <div class="tag">Domestic & Commercial bench scales</div>
           </div>
           <div class="grid" id="grid-10-20"></div>
         </section>
 
         <!-- Category: 30-100kg -->
-        <section id="cat-30-100">
+        <section>
           <div class="cat-header">
             <div class="cat-title">30 — 100 kg Scales</div>
-            <div style="color:var(--muted);font-size:13px">Heavy bench/platform options</div>
+            <div class="tag">Heavy bench / platform options</div>
           </div>
           <div class="grid" id="grid-30-100"></div>
         </section>
 
         <!-- Category: 100kg+ -->
-        <section id="cat-100plus">
+        <section>
           <div class="cat-header">
             <div class="cat-title">100 kg — 1 ton & above</div>
-            <div style="color:var(--muted);font-size:13px">Platform & industrial scales</div>
+            <div class="tag">Platform & industrial scales</div>
           </div>
           <div class="grid" id="grid-100plus"></div>
         </section>
       </main>
 
-      <!-- CALCULATOR / ORDER SIDEBAR -->
+      <!-- ORDER SIDEBAR -->
       <aside>
         <div class="calc" aria-live="polite">
-          <h3 style="margin:0 0 8px">Order Summary</h3>
+          <h3>Order Summary</h3>
           <div class="line"><div>Subtotal</div><div id="subtotal">₹0.00</div></div>
           <div class="line"><div>Extras</div><div id="extras">₹0.00</div></div>
           <div class="line"><div>GST (18%)</div><div id="tax">₹0.00</div></div>
-          <hr style="border:none;border-top:1px solid #eef;margin:8px 0">
+          <hr style="border:none;border-top:1px solid #eee;margin:8px 0">
           <div class="line"><strong>Total</strong><strong id="total">₹0.00</strong></div>
 
-          <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
             <a id="whatsappBtn" class="btn btn-primary" href="#" target="_blank">WhatsApp</a>
             <a id="callBtn" class="btn btn-light" href="#">Call</a>
             <a id="emailBtn" class="btn btn-light" href="#">Email</a>
           </div>
-
-          <hr style="border:none;border-top:1px solid #eef;margin:12px 0">
-
-          <!-- Quick order form (for Netlify/form handlers later) -->
-          <form id="orderForm" method="POST" data-netlify="true" name="order">
-            <input type="hidden" name="order_summary" id="order_summary" />
-            <div style="display:grid;gap:8px">
-              <input name="name" placeholder="Your name" required style="padding:8px;border-radius:6px;border:1px solid #ddd" />
-              <input name="phone" placeholder="Phone (WhatsApp)" required style="padding:8px;border-radius:6px;border:1px solid #ddd" />
-              <input name="email" placeholder="Email (optional)" style="padding:8px;border-radius:6px;border:1px solid #ddd" />
-              <textarea name="message" placeholder="Address / Delivery notes (optional)"></textarea>
-              <button type="submit" class="btn btn-primary">Send Order</button>
-            </div>
-          </form>
         </div>
       </aside>
     </div>
@@ -146,54 +140,42 @@
   </div>
 
   <script>
-    /***********************
-     * CONFIG - edit these
-     ***********************/
-    const businessPhone = "+91XXXXXXXXXX";         // tel: format
-    const businessWhatsAppNumber = "91XXXXXXXXXX"; // for wa.me (no +)
-    const contactEmail = "youremail@domain.com";
+    /******** CONFIG ********/
+    const businessPhone = "+919688106228";
+    const businessWhatsAppNumber = "919688106228"; // no +
+    const contactEmail = "jacksonscalesservice@gmail.com";
     const gstPercent = 18;
 
-    // productsData: categories with product objects
-    // Use imgs: [] array with 1..5 filenames (put files into same folder)
     const productsData = [
-      // 10-20 kg examples (with multiple images each)
-      { id: "MACRO-MINI-10-4V", category: "10-20", name: "Macro Mini 10kg (4V)", body: "Plastic, rechargeable", volts: "4V", price: 1800, imgs: ["macro mini 10kg 1.jpeg", "macro mini 10kg 2.jpeg"] },
-      { id: "MINI-10-4V", category: "10-20", name: "Mini 10kg (4V)", body: "Plastic, rechargeable", volts: "4V", price: 2800, imgs: ["mini1.png","mini2.png"] },
-      { id: "MINI-10-6V", category: "10-20", name: "Mini 10kg (6V)", body: "Plastic, rechargeable", volts: "6V", price: 3300, imgs: [] },
-      // 30-100kg examples
-      { id: "PLT-30-MS", category: "30-100", name: "30kg Platform (MS Body)", body: "MS body", volts: "-", price: 4500, imgs: [] },
-      { id: "PLT-30-SS", category: "30-100", name: "30kg Platform (SS Body)", body: "SS body", volts: "-", price: 6500, imgs: [] },
-      // 100+ examples
-      { id: "PLT-100", category: "100+", name: "100kg Platform Scale", body: "Heavy duty", volts: "-", price: 12000, imgs: [] }
+      { id:"MACRO-MINI-10-4V", category:"10-20", name:"Macro Mini 10kg (4V)", body:"Plastic, rechargeable", volts:"4V", price:1800, imgs:["macro mini 10kg 1.jpeg","macro mini 10kg 2.jpeg"] },
+      { id:"MINI-10-4V", category:"10-20", name:"Mini 10kg (4V)", body:"Plastic, rechargeable", volts:"4V", price:2800, imgs:["mini1.png","mini2.png"] },
+      { id:"MINI-10-6V", category:"10-20", name:"Mini 10kg (6V)", body:"Plastic, rechargeable", volts:"6V", price:3300, imgs:[] },
+      { id:"PLT-30-MS", category:"30-100", name:"30kg Platform (MS Body)", body:"MS body", volts:"-", price:4500, imgs:[] },
+      { id:"PLT-30-SS", category:"30-100", name:"30kg Platform (SS Body)", body:"SS body", volts:"-", price:6500, imgs:[] },
+      { id:"PLT-100", category:"100+", name:"100kg Platform Scale", body:"Heavy duty", volts:"-", price:12000, imgs:[] }
     ];
 
-    /***********************
-     * RENDERING LOGIC
-     ***********************/
-    function createCardHTML(p) {
+    /******** RENDER ********/
+    function createCardHTML(p){
       const mainImg = (p.imgs && p.imgs.length) ? p.imgs[0] : null;
-      const imgHtml = mainImg ? `<img src="${mainImg}" alt="${p.name}">` : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--muted)">Image</div>`;
-
-      // thumbnails HTML
+      const imgHtml = mainImg ? `<img src="${mainImg}" alt="${p.name}">` : `<div style="color:var(--muted)">No Image</div>`;
       let thumbsHtml = '';
-      if (p.imgs && p.imgs.length) {
+      if (p.imgs && p.imgs.length){
         thumbsHtml = '<div class="thumbs">';
-        p.imgs.forEach((f, i) => {
-          thumbsHtml += `<img src="${f}" data-id="${p.id}" data-src="${f}" class="${i===0 ? 'active' : ''}" alt="thumb">`;
+        p.imgs.forEach((f,i)=>{
+          thumbsHtml += `<img src="${f}" data-id="${p.id}" data-src="${f}" class="${i===0?'active':''}" alt="thumb">`;
         });
         thumbsHtml += '</div>';
       }
-
       return `
         <div class="card" data-id="${p.id}" data-price="${p.price}">
           <div class="img-wrap">${imgHtml}</div>
           <div class="prod-name">${p.name}</div>
-          <div class="spec">${p.body} ${p.volts ? '• ' + p.volts : ''}</div>
+          <div class="spec">${p.body} ${p.volts ? '• '+p.volts:''}</div>
           <div class="price">₹${p.price.toLocaleString()}</div>
           ${thumbsHtml}
           <div class="controls">
-            <label style="font-size:13px;color:var(--muted);margin-right:6px">Qty</label>
+            <label style="font-size:13px;color:var(--muted)">Qty</label>
             <input class="qty" type="number" min="0" value="0" data-id="${p.id}">
             <button class="btn btn-light add-one" data-id="${p.id}" style="margin-left:auto">+1</button>
           </div>
@@ -201,122 +183,78 @@
       `;
     }
 
-    function renderProducts() {
-      const g10 = document.getElementById('grid-10-20');
-      const g30 = document.getElementById('grid-30-100');
-      const g100 = document.getElementById('grid-100plus');
-
-      g10.innerHTML = '';
-      g30.innerHTML = '';
-      g100.innerHTML = '';
-
-      productsData.forEach(p => {
-        const html = createCardHTML(p);
-        if (p.category === '10-20') g10.insertAdjacentHTML('beforeend', html);
-        else if (p.category === '30-100') g30.insertAdjacentHTML('beforeend', html);
-        else g100.insertAdjacentHTML('beforeend', html);
+    function renderProducts(){
+      const g10=document.getElementById('grid-10-20');
+      const g30=document.getElementById('grid-30-100');
+      const g100=document.getElementById('grid-100plus');
+      [g10,g30,g100].forEach(g=>g.innerHTML='');
+      productsData.forEach(p=>{
+        const html=createCardHTML(p);
+        if(p.category==='10-20') g10.insertAdjacentHTML('beforeend',html);
+        else if(p.category==='30-100') g30.insertAdjacentHTML('beforeend',html);
+        else g100.insertAdjacentHTML('beforeend',html);
       });
-
-      // attach listeners for qty, +1 and thumbnail clicks
-      document.querySelectorAll('.qty').forEach(el=>{
-        el.addEventListener('input', calculate);
-      });
+      document.querySelectorAll('.qty').forEach(el=>el.addEventListener('input',calculate));
       document.querySelectorAll('.add-one').forEach(btn=>{
-        btn.addEventListener('click', (e)=>{
-          const id = btn.dataset.id;
-          const q = document.querySelector(`.qty[data-id="${id}"]`);
-          q.value = Math.max(0, parseInt(q.value||0) + 1);
-          calculate();
+        btn.addEventListener('click',()=>{
+          const q=document.querySelector(`.qty[data-id="${btn.dataset.id}"]`);
+          q.value=Math.max(0,parseInt(q.value||0)+1);calculate();
         });
       });
-
-      // thumbnail click handler - swap main image
-      document.querySelectorAll('.thumbs img').forEach(th => {
-        th.addEventListener('click', function(){
-          const card = th.closest('.card');
-          const imgWrap = card.querySelector('.img-wrap');
-          const src = th.dataset.src;
-          // update main image (replace img or create one)
-          let mainImg = imgWrap.querySelector('img');
-          if (!mainImg) {
-            imgWrap.innerHTML = `<img src="${src}" alt="">`;
-          } else {
-            mainImg.src = src;
-          }
-          // update active thumb styling
-          card.querySelectorAll('.thumbs img').forEach(t=> t.classList.remove('active'));
+      document.querySelectorAll('.thumbs img').forEach(th=>{
+        th.addEventListener('click',function(){
+          const card=th.closest('.card');
+          const imgWrap=card.querySelector('.img-wrap');
+          let mainImg=imgWrap.querySelector('img');
+          if(!mainImg){imgWrap.innerHTML=`<img src="${th.dataset.src}" alt="">`;}
+          else{mainImg.src=th.dataset.src;}
+          card.querySelectorAll('.thumbs img').forEach(t=>t.classList.remove('active'));
           th.classList.add('active');
         });
       });
     }
 
-    /***********************
-     * CALCULATION LOGIC
-     ***********************/
-    function calculate() {
-      const qtyEls = document.querySelectorAll('.qty');
-      let subtotal = 0;
-      let extras = 0;
-      qtyEls.forEach(qe=>{
-        const qty = Math.max(0, parseInt(qe.value) || 0);
-        if (qty <= 0) return;
-        const id = qe.dataset.id;
-        const prod = productsData.find(p=>p.id===id);
-        if (!prod) return;
-        subtotal += prod.price * qty;
+    /******** CALC ********/
+    function calculate(){
+      let subtotal=0; let extras=0;
+      document.querySelectorAll('.qty').forEach(qe=>{
+        const qty=Math.max(0,parseInt(qe.value)||0);
+        if(!qty) return;
+        const prod=productsData.find(p=>p.id===qe.dataset.id);
+        if(!prod) return;
+        subtotal+=prod.price*qty;
       });
+      const taxable=subtotal+extras;
+      const tax=+(taxable*gstPercent/100).toFixed(2);
+      const total=+(taxable+tax).toFixed(2);
+      document.getElementById('subtotal').textContent='₹'+subtotal.toLocaleString();
+      document.getElementById('extras').textContent='₹'+extras.toLocaleString();
+      document.getElementById('tax').textContent='₹'+tax.toLocaleString();
+      document.getElementById('total').textContent='₹'+total.toLocaleString();
 
-      const taxable = subtotal + extras;
-      const tax = +(taxable * gstPercent / 100).toFixed(2);
-      const total = +(taxable + tax).toFixed(2);
-
-      document.getElementById('subtotal').textContent = '₹' + subtotal.toLocaleString(undefined, {minimumFractionDigits:2});
-      document.getElementById('extras').textContent = '₹' + extras.toLocaleString(undefined, {minimumFractionDigits:2});
-      document.getElementById('tax').textContent = '₹' + tax.toLocaleString(undefined, {minimumFractionDigits:2});
-      document.getElementById('total').textContent = '₹' + total.toLocaleString(undefined, {minimumFractionDigits:2});
-
-      // create summary
-      const lines = [];
-      qtyEls.forEach(qe=>{
-        const qty = Math.max(0, parseInt(qe.value) || 0);
-        if (qty <= 0) return;
-        const id = qe.dataset.id;
-        const prod = productsData.find(p=>p.id===id);
-        lines.push(`${prod.name} x ${qty} = ₹${(prod.price * qty).toFixed(2)}`);
+      const lines=[];
+      document.querySelectorAll('.qty').forEach(qe=>{
+        const qty=Math.max(0,parseInt(qe.value)||0);
+        if(!qty) return;
+        const prod=productsData.find(p=>p.id===qe.dataset.id);
+        lines.push(`${prod.name} x ${qty} = ₹${(prod.price*qty).toFixed(2)}`);
       });
       lines.push(`Subtotal: ₹${subtotal.toFixed(2)}`);
       lines.push(`GST (${gstPercent}%): ₹${tax.toFixed(2)}`);
       lines.push(`Total: ₹${total.toFixed(2)}`);
-      const summary = lines.join('\\n');
+      const summary=lines.join('\\n');
 
-      // set links
-      const waText = encodeURIComponent(`Hello, I want to order:\\n${summary}\\n\\nName:\\nPhone:`);
-      document.getElementById('whatsappBtn').href = `https://wa.me/${businessWhatsAppNumber}?text=${waText}`;
-      document.getElementById('whatsappTop').href = `https://wa.me/${businessWhatsAppNumber}?text=${waText}`;
-      document.getElementById('callBtn').href = `tel:${businessPhone}`;
-      const mailBody = encodeURIComponent(`Order request:%0A${summary}%0A%0AName:%0APhone:%0AAddress:%0AComments:`);
-      document.getElementById('emailBtn').href = `mailto:${contactEmail}?subject=${encodeURIComponent('Order request')}&body=${mailBody}`;
-
-      // put into hidden form field
-      const orderSummaryField = document.getElementById('order_summary');
-      if (orderSummaryField) orderSummaryField.value = summary;
+      const waText=encodeURIComponent(`Hello, I want to order:\\n${summary}\\n\\nName:\\nPhone:`);
+      document.getElementById('whatsappBtn').href=`https://wa.me/${businessWhatsAppNumber}?text=${waText}`;
+      document.getElementById('whatsappTop').href=`https://wa.me/${businessWhatsAppNumber}?text=${waText}`;
+      document.getElementById('callBtn').href=`tel:${businessPhone}`;
+      const mailBody=encodeURIComponent(`Order request:%0A${summary}%0A%0AName:%0APhone:%0AAddress:%0AComments:`);
+      document.getElementById('emailBtn').href=`mailto:${contactEmail}?subject=${encodeURIComponent('Order request')}&body=${mailBody}`;
     }
 
-    // form validation: ensure total > 0
-    document.addEventListener('submit', function(e){
-      const t = document.getElementById('total').textContent.replace(/[₹, ]/g,'');
-      if (e.target && e.target.id === 'orderForm' && parseFloat(t) <= 0) {
-        e.preventDefault();
-        alert('Please select at least one product before sending an order.');
-      }
-    }, true);
-
-    // INIT
     renderProducts();
     calculate();
-
-    // update year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('year').textContent=new Date().getFullYear();
   </script>
 </body>
 </html>
