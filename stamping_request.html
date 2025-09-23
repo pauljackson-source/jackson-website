@@ -4,128 +4,346 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Request Stamping — Jackson Scales</title>
-  <meta name="description" content="Request stamping from Jackson Scales - fill details and send via WhatsApp or email."/>
+
+  <!-- Google font (can remove if offline) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    :root {
-      --accent:#0f62fe;
-      --muted:#666;
-      --bg:#f6f8fb;
-      --card:#fff;
-      --maxw:800px;
+    :root{
+      --accent: #0b63ff;
+      --accent-600: #084fc4;
+      --muted: #6d6d72;
+      --bg: #f3f6fb;
+      --card: #ffffff;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(16,24,40,0.06);
+      --maxw: 980px;
+      --success: #0f9d58;
     }
+
     *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,Arial;background:var(--bg);color:#111}
-    .wrap{max-width:var(--maxw);margin:28px auto;padding:18px}
-    h1{margin:0 0 12px}
-    form{background:var(--card);padding:20px;border-radius:12px;box-shadow:0 6px 18px rgba(10,20,40,0.06)}
-    label{display:block;margin-top:12px;font-weight:600}
-    input[type="text"], input[type="tel"], textarea{
-      width:100%;padding:10px;border-radius:8px;border:1px solid #ddd;margin-top:6px
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background:linear-gradient(180deg,var(--bg), #eef4ff 60%);
+      color:#111;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:28px 16px;
     }
-    textarea{min-height:90px;resize:vertical}
-    .actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
-    .btn{padding:10px 14px;border-radius:8px;border:none;cursor:pointer;font-weight:700}
-    .btn-primary{background:var(--accent);color:white}
-    .btn-ghost{background:#eee;color:#222}
-    .note{font-size:13px;color:var(--muted);margin-top:10px}
-    .link-back{display:inline-block;margin-bottom:14px;color:var(--accent);text-decoration:none}
+
+    .container{max-width:var(--maxw);margin:0 auto}
+
+    /* Header */
+    .topbar{
+      display:flex;align-items:center;gap:16px;margin-bottom:20px;
+    }
+    .logo{
+      width:64px;height:64px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--muted);
+      box-shadow:var(--shadow);
+      font-size:18px;
+    }
+    .brand-title{font-weight:800;font-size:20px}
+    .brand-sub{color:var(--muted);font-size:13px}
+
+    /* Card */
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+      margin-top:6px;
+    }
+
+    .header-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+    .page-title{font-size:20px;margin:0}
+    .page-desc{color:var(--muted);font-size:13px;margin:6px 0 0}
+
+    /* form layout */
+    form{display:block}
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+      margin-top:12px;
+    }
+    @media(min-width:880px){
+      .grid{grid-template-columns:1fr 360px}
+    }
+
+    .form-inner{
+      padding:0;
+      background:linear-gradient(180deg, transparent, transparent);
+      border-radius:10px;
+    }
+
+    .fields{
+      display:grid;gap:12px;padding:12px;
+    }
+
+    label{display:block;font-weight:600;font-size:13px;color:#222;margin-bottom:6px}
+    .input, textarea{
+      width:100%;
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #e6e9f0;
+      background: #fff;
+      font-size:14px;
+      color:#111;
+      outline:none;
+      transition:box-shadow .15s ease, border-color .15s ease;
+    }
+    .input:focus, textarea:focus{
+      border-color:var(--accent);
+      box-shadow:0 6px 24px rgba(11,99,255,0.06);
+    }
+    textarea{min-height:120px;resize:vertical}
+
+    /* side cards */
+    .side-card{background:#fafcff;border-radius:10px;padding:14px;border:1px solid #eef4ff}
+    .side-card h4{margin:0 0 8px;font-size:15px}
+    .side-card p{margin:0;color:var(--muted);font-size:13px}
+
+    /* buttons */
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700;
+      font-size:14px;
+    }
+    .btn-primary{background:var(--accent);color:#fff;box-shadow:0 8px 22px rgba(11,99,255,0.12)}
+    .btn-secondary{background:#fff;border:1px solid #e6e9f0;color:#111}
+    .btn-ghost{background:#f4f6fb;border-radius:8px;color:var(--muted);padding:8px 12px}
+
+    .hint{font-size:13px;color:var(--muted);margin-top:10px}
+
+    /* success modal */
+    .modal-backdrop{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(4,10,25,0.45);z-index:999}
+    .modal{background:var(--card);border-radius:12px;padding:18px;box-shadow:var(--shadow);width:420px;max-width:92%;}
+    .modal h3{margin:0 0 8px}
+    .modal p{margin:0 0 10px;color:var(--muted)}
+
+    /* small helpers */
+    .muted{color:var(--muted);font-size:13px}
+    .field-row{display:flex;gap:12px}
+    .field-col{flex:1}
+
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <a class="link-back" href="index.html">&larr; Back to Dashboard</a>
-    <h1>Request Stamping</h1>
-    <p>Please fill your details below and send your request. You can choose to send via WhatsApp or Email.</p>
+  <div class="container">
+    <div class="topbar">
+      <div class="logo">JS</div>
+      <div>
+        <div class="brand-title">Jackson Scales</div>
+        <div class="brand-sub">Government licensed • Weighing scale stamping & servicing</div>
+      </div>
+    </div>
 
-    <form id="stampingForm">
-      <label for="name">Full name *</label>
-      <input id="name" name="name" type="text" required placeholder="Your full name">
-
-      <label for="shop">Shop / Business name *</label>
-      <input id="shop" name="shop" type="text" required placeholder="Shop or business name">
-
-      <label for="phone">Phone (WhatsApp enabled) *</label>
-      <input id="phone" name="phone" type="tel" required placeholder="+91..." >
-
-      <label for="address">Address *</label>
-      <textarea id="address" name="address" required placeholder="Shop address, city, pincode"></textarea>
-
-      <!-- File uploads (commented for now)
-      <label for="oldCert">Current / previous machine certificate</label>
-      <input id="oldCert" name="oldCert" type="file" accept="image/*,.pdf">
-
-      <label for="plateImg">Stamping plate image</label>
-      <input id="plateImg" name="plateImg" type="file" accept="image/*">
-      -->
-
-      <label for="notes">Additional details (optional)</label>
-      <textarea id="notes" name="notes" placeholder="Any extra instructions or description"></textarea>
-
-      <div class="actions">
-        <button type="button" id="sendWhatsApp" class="btn btn-primary">Send via WhatsApp</button>
-        <button type="button" id="sendEmail" class="btn btn-ghost">Send via Email</button>
+    <div class="card">
+      <div class="header-row">
+        <div>
+          <h1 class="page-title">Request Stamping</h1>
+          <div class="page-desc">Quickly request stamping — fill the form and open WhatsApp or your email to send the request.</div>
+        </div>
+        <div class="muted">Ref: <strong>#STAMP-<span id="refnum"></span></strong></div>
       </div>
 
-      <p class="note">⚠️ For now, please attach stamping certificate and plate images manually when you send via WhatsApp or Email.</p>
-    </form>
+      <div class="grid">
+        <!-- left: main form -->
+        <div class="form-inner">
+          <form id="stampingForm" autocomplete="on" novalidate>
+            <div class="fields">
+              <div>
+                <label for="name">Full name *</label>
+                <input id="name" name="name" class="input" type="text" placeholder="Your full name" required>
+              </div>
+
+              <div>
+                <label for="shop">Shop / Business name *</label>
+                <input id="shop" name="shop" class="input" type="text" placeholder="Shop or business name" required>
+              </div>
+
+              <div class="field-row">
+                <div class="field-col">
+                  <label for="phone">Phone (WhatsApp enabled) *</label>
+                  <input id="phone" name="phone" class="input" type="tel" placeholder="+91 9XXXXXXXXX" required>
+                </div>
+                <div class="field-col">
+                  <label for="pincode">Pincode (optional)</label>
+                  <input id="pincode" name="pincode" class="input" type="text" placeholder="600001">
+                </div>
+              </div>
+
+              <div>
+                <label for="address">Address *</label>
+                <textarea id="address" name="address" placeholder="Shop address, city, landmark" required></textarea>
+              </div>
+
+              <!-- File inputs commented for now: uncomment when backend ready -->
+              <!--
+              <div>
+                <label for="oldCert">Current / previous certificate (image or PDF)</label>
+                <input id="oldCert" name="oldCert" type="file" accept="image/*,.pdf">
+              </div>
+
+              <div>
+                <label for="plateImg">Stamping plate image</label>
+                <input id="plateImg" name="plateImg" type="file" accept="image/*">
+              </div>
+              -->
+
+              <div>
+                <label for="notes">Additional details (optional)</label>
+                <textarea id="notes" name="notes" placeholder="Any extra instructions"></textarea>
+              </div>
+
+              <div class="hint">Files are optional for now; after we enable uploads you can attach certificates and plate photos.</div>
+
+              <div class="actions" style="margin-top:14px">
+                <button type="button" id="sendWhatsApp" class="btn btn-primary">Send via WhatsApp</button>
+                <button type="button" id="sendEmail" class="btn btn-secondary">Send via Email</button>
+                <button type="reset" class="btn btn-ghost">Clear</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- right: info / contact -->
+        <aside>
+          <div class="side-card" role="note">
+            <h4>How this works</h4>
+            <p>Complete the form > click WhatsApp to open your chat with a prefilled message (you may add attachments there), or use Email to open your mail client.</p>
+            <p style="margin-top:10px"><strong>Phone (Primary):</strong><br/><a href="tel:+919443729638">+91 94437 29638</a></p>
+            <p style="margin-top:6px"><strong>Email:</strong><br/><a href="mailto:jacksonscalesservice@gmail.com">jacksonscalesservice@gmail.com</a></p>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <div class="side-card">
+            <h4>Tips before sending</h4>
+            <ul style="margin:8px 0 0 16px;color:var(--muted)">
+              <li>Double-check phone number (WhatsApp uses the number provided).</li>
+              <li>Add photos of the plate or certificate in WhatsApp/email if you want immediate attachment.</li>
+              <li>We will contact you to confirm slot & charges.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <footer style="margin-top:16px">© <span id="year"></span> Jackson Scales</footer>
+  </div>
+
+  <!-- success modal -->
+  <div id="modalBackdrop" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true">
+      <h3>All set</h3>
+      <p>We opened your app with the request text. Please add attachments (if any) and send the message to complete your request.</p>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:12px">
+        <button id="modalClose" class="btn btn-secondary">Close</button>
+      </div>
+    </div>
   </div>
 
   <script>
-    // Replace with your details
-    const businessWhatsAppNumber = "919443729638"; // no + sign
+    // small helpers
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('refnum').textContent = Math.floor(1000 + Math.random()*9000);
+
+    const businessWhatsAppNumber = "919443729638"; // no plus
     const businessEmail = "jacksonscalesservice@gmail.com";
 
-    function collectFormData() {
+    function collect() {
       return {
         name: document.getElementById('name').value.trim(),
         shop: document.getElementById('shop').value.trim(),
         phone: document.getElementById('phone').value.trim(),
+        pincode: document.getElementById('pincode').value.trim(),
         address: document.getElementById('address').value.trim(),
         notes: document.getElementById('notes').value.trim()
       };
     }
 
-    function validateRequired(d) {
-      if (!d.name || !d.shop || !d.phone || !d.address) {
-        alert('Please fill your Name, Shop name, Phone and Address before sending.');
+    function validate(data) {
+      if (!data.name || !data.shop || !data.phone || !data.address) {
+        alert('Please fill: Name, Shop, Phone, and Address.');
         return false;
       }
       return true;
     }
 
-    // WhatsApp button
+    function openModal() {
+      const mb = document.getElementById('modalBackdrop');
+      mb.style.display = 'flex';
+      mb.setAttribute('aria-hidden','false');
+    }
+    function closeModal() {
+      const mb = document.getElementById('modalBackdrop');
+      mb.style.display = 'none';
+      mb.setAttribute('aria-hidden','true');
+    }
+
+    // Build message string for wa.me (use encoded pieces)
+    function buildMessage(data) {
+      let lines = [];
+      lines.push('Request Stamping - Jackson Scales');
+      lines.push('');
+      lines.push('Name: ' + data.name);
+      lines.push('Shop: ' + data.shop);
+      lines.push('Phone: ' + data.phone);
+      if (data.pincode) lines.push('Pincode: ' + data.pincode);
+      lines.push('Address: ' + data.address);
+      if (data.notes) { lines.push(''); lines.push('Notes: ' + data.notes); }
+      lines.push('');
+      lines.push('Please contact me to confirm scheduling.');
+      return encodeURIComponent(lines.join('\\n'));
+    }
+
+    // WhatsApp open
     document.getElementById('sendWhatsApp').addEventListener('click', function () {
-      const d = collectFormData();
-      if (!validateRequired(d)) return;
-
-      let msg = `Request Stamping - Jackson Scales%0A%0A`;
-      msg += `Name: ${encodeURIComponent(d.name)}%0A`;
-      msg += `Shop: ${encodeURIComponent(d.shop)}%0A`;
-      msg += `Phone: ${encodeURIComponent(d.phone)}%0A`;
-      msg += `Address: ${encodeURIComponent(d.address)}%0A%0A`;
-      if (d.notes) msg += `Notes: ${encodeURIComponent(d.notes)}%0A%0A`;
-      msg += `Please contact me to confirm scheduling.`;
-
-      const waUrl = `https://wa.me/${businessWhatsAppNumber}?text=${msg}`;
-      window.open(waUrl, '_blank');
+      const d = collect();
+      if (!validate(d)) return;
+      const msg = buildMessage(d);
+      const url = 'https://wa.me/' + businessWhatsAppNumber + '?text=' + msg;
+      window.open(url, '_blank');
+      openModal();
     });
 
-    // Email button
+    // Email open
     document.getElementById('sendEmail').addEventListener('click', function () {
-      const d = collectFormData();
-      if (!validateRequired(d)) return;
-
-      const subject = encodeURIComponent(`Stamping Request — ${d.shop} — ${d.name}`);
-      let body = `Request Stamping - Jackson Scales\n\n`;
-      body += `Name: ${d.name}\n`;
-      body += `Shop: ${d.shop}\n`;
-      body += `Phone: ${d.phone}\n`;
-      body += `Address: ${d.address}\n\n`;
-      if (d.notes) body += `Notes: ${d.notes}\n\n`;
-      body += `Please contact me to confirm scheduling.`;
-
-      const mailto = `mailto:${encodeURIComponent(businessEmail)}?subject=${subject}&body=${encodeURIComponent(body)}`;
+      const d = collect();
+      if (!validate(d)) return;
+      const subject = encodeURIComponent('Stamping Request — ' + d.shop + ' — ' + d.name);
+      let body = [
+        'Request Stamping - Jackson Scales',
+        '',
+        'Name: ' + d.name,
+        'Shop: ' + d.shop,
+        'Phone: ' + d.phone,
+        d.pincode ? 'Pincode: ' + d.pincode : '',
+        'Address: ' + d.address,
+        d.notes ? '' : '',
+        d.notes ? 'Notes: ' + d.notes : '',
+        '',
+        'Please contact me to confirm scheduling.'
+      ].filter(Boolean).join('\\n');
+      const mailto = 'mailto:' + encodeURIComponent(businessEmail) + '?subject=' + subject + '&body=' + encodeURIComponent(body);
       window.location.href = mailto;
+      openModal();
+    });
+
+    // modal handlers
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    document.getElementById('modalBackdrop').addEventListener('click', function(e){
+      if (e.target === this) closeModal();
+    });
+
+    // small UX: Enter submits WhatsApp
+    document.getElementById('stampingForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      document.getElementById('sendWhatsApp').click();
     });
   </script>
 </body>
