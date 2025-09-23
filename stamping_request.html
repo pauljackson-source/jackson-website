@@ -6,44 +6,38 @@
   <title>Request Stamping — Jackson Scales</title>
   <meta name="description" content="Request stamping from Jackson Scales - fill details and send via WhatsApp or email."/>
   <style>
-    :root{
+    :root {
       --accent:#0f62fe;
       --muted:#666;
       --bg:#f6f8fb;
       --card:#fff;
-      --maxw:900px;
+      --maxw:800px;
     }
     *{box-sizing:border-box}
-    body{margin:0;font-family:Inter, system-ui, Arial;background:var(--bg);color:#111}
+    body{margin:0;font-family:Inter,system-ui,Arial;background:var(--bg);color:#111}
     .wrap{max-width:var(--maxw);margin:28px auto;padding:18px}
     h1{margin:0 0 12px}
-    form{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 8px 24px rgba(10,20,40,0.06)}
-    label{display:block;margin-top:12px;font-weight:700}
-    input[type="text"], input[type="tel"], textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #ddd;margin-top:6px}
-    textarea{min-height:100px;resize:vertical}
-    .row{display:flex;gap:12px}
-    .col{flex:1}
-    .small{font-size:13px;color:var(--muted);margin-top:6px}
-    .actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+    form{background:var(--card);padding:20px;border-radius:12px;box-shadow:0 6px 18px rgba(10,20,40,0.06)}
+    label{display:block;margin-top:12px;font-weight:600}
+    input[type="text"], input[type="tel"], textarea{
+      width:100%;padding:10px;border-radius:8px;border:1px solid #ddd;margin-top:6px
+    }
+    textarea{min-height:90px;resize:vertical}
+    .actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
     .btn{padding:10px 14px;border-radius:8px;border:none;cursor:pointer;font-weight:700}
     .btn-primary{background:var(--accent);color:white}
     .btn-ghost{background:#eee;color:#222}
     .note{font-size:13px;color:var(--muted);margin-top:10px}
-    .link-back{display:inline-block;margin-top:12px;color:var(--accent);text-decoration:none}
+    .link-back{display:inline-block;margin-bottom:14px;color:var(--accent);text-decoration:none}
   </style>
 </head>
 <body>
   <div class="wrap">
     <a class="link-back" href="index.html">&larr; Back to Dashboard</a>
     <h1>Request Stamping</h1>
-    <p class="small">Fill the details below and choose to send via WhatsApp or Email. If you prefer, submit the form to send files to our inbox (requires form server).</p>
+    <p>Please fill your details below and send your request. You can choose to send via WhatsApp or Email.</p>
 
-    <!-- Replace action with your form endpoint if you want server uploads (Formspree / Netlify) -->
-    <!-- Example Formspree: action="https://formspree.io/f/YOUR_FORM_ID" method="POST" enctype="multipart/form-data" -->
-    <form id="stampingForm" autocomplete="on" method="POST" enctype="multipart/form-data" action="">
-      <!-- Hidden field for later server-side usage -->
-      <input type="hidden" name="form-name" value="stamping-request">
-
+    <form id="stampingForm">
       <label for="name">Full name *</label>
       <input id="name" name="name" type="text" required placeholder="Your full name">
 
@@ -56,118 +50,82 @@
       <label for="address">Address *</label>
       <textarea id="address" name="address" required placeholder="Shop address, city, pincode"></textarea>
 
-      <label for="oldCert">Current / previous machine certificate (image or PDF)</label>
+      <!-- File uploads (commented for now)
+      <label for="oldCert">Current / previous machine certificate</label>
       <input id="oldCert" name="oldCert" type="file" accept="image/*,.pdf">
 
-      <label for="plateImg">Stamping plate image (photo)</label>
+      <label for="plateImg">Stamping plate image</label>
       <input id="plateImg" name="plateImg" type="file" accept="image/*">
+      -->
 
       <label for="notes">Additional details (optional)</label>
       <textarea id="notes" name="notes" placeholder="Any extra instructions or description"></textarea>
 
       <div class="actions">
-        <!-- These buttons are handled by JS -->
         <button type="button" id="sendWhatsApp" class="btn btn-primary">Send via WhatsApp</button>
         <button type="button" id="sendEmail" class="btn btn-ghost">Send via Email</button>
-
-        <!-- Optional: server submit (uncomment action attribute if using Formspree/Netlify) -->
-        <button type="submit" id="submitServer" class="btn btn-ghost">Submit (Upload files)</button>
       </div>
 
-      <p class="note">
-        Notes: WhatsApp & Email options open the customer's app with text prefilled. Files cannot be attached automatically via these links — customer must attach files manually in the app. Use the <strong>Submit (Upload files)</strong> option if you set up a form endpoint to receive attachments.
-      </p>
+      <p class="note">⚠️ For now, please attach stamping certificate and plate images manually when you send via WhatsApp or Email.</p>
     </form>
   </div>
 
   <script>
-    // Config: set your WhatsApp number (no +) and email
-    const businessWhatsAppNumber = "91XXXXXXXXXX"; // e.g. 919999888777
+    // Replace with your details
+    const businessWhatsAppNumber = "919443729638"; // no + sign
     const businessEmail = "jacksonscalesservice@gmail.com";
-    const gstText = ""; // optional to include GST or company note
 
-    // Helper to read form values
     function collectFormData() {
-      const name = document.getElementById('name').value.trim();
-      const shop = document.getElementById('shop').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const address = document.getElementById('address').value.trim();
-      const notes = document.getElementById('notes').value.trim();
-
-      // File names (we can't read file contents for WhatsApp/mailto)
-      const oldCertInput = document.getElementById('oldCert');
-      const plateImgInput = document.getElementById('plateImg');
-      const oldCertName = oldCertInput.files && oldCertInput.files.length ? oldCertInput.files[0].name : "(no file)";
-      const plateName = plateImgInput.files && plateImgInput.files.length ? plateImgInput.files[0].name : "(no file)";
-
-      return { name, shop, phone, address, notes, oldCertName, plateName };
+      return {
+        name: document.getElementById('name').value.trim(),
+        shop: document.getElementById('shop').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        address: document.getElementById('address').value.trim(),
+        notes: document.getElementById('notes').value.trim()
+      };
     }
 
-    // Prefill validation
-    function validateRequired() {
-      const { name, shop, phone, address } = collectFormData();
-      if (!name || !shop || !phone || !address) {
+    function validateRequired(d) {
+      if (!d.name || !d.shop || !d.phone || !d.address) {
         alert('Please fill your Name, Shop name, Phone and Address before sending.');
         return false;
       }
       return true;
     }
 
-    // Send via WhatsApp (opens user whatsapp with message)
+    // WhatsApp button
     document.getElementById('sendWhatsApp').addEventListener('click', function () {
-      if (!validateRequired()) return;
       const d = collectFormData();
-      // build message (line breaks with \n)
+      if (!validateRequired(d)) return;
+
       let msg = `Request Stamping - Jackson Scales%0A%0A`;
       msg += `Name: ${encodeURIComponent(d.name)}%0A`;
       msg += `Shop: ${encodeURIComponent(d.shop)}%0A`;
       msg += `Phone: ${encodeURIComponent(d.phone)}%0A`;
       msg += `Address: ${encodeURIComponent(d.address)}%0A%0A`;
-      msg += `Old certificate: ${encodeURIComponent(d.oldCertName)}%0A`;
-      msg += `Stamping plate: ${encodeURIComponent(d.plateName)}%0A%0A`;
       if (d.notes) msg += `Notes: ${encodeURIComponent(d.notes)}%0A%0A`;
-      if (gstText) msg += `${encodeURIComponent(gstText)}%0A%0A`;
       msg += `Please contact me to confirm scheduling.`;
 
-      // open wa.me link (works on mobile & web)
       const waUrl = `https://wa.me/${businessWhatsAppNumber}?text=${msg}`;
       window.open(waUrl, '_blank');
     });
 
-    // Send via Email (opens mail client with subject + body)
+    // Email button
     document.getElementById('sendEmail').addEventListener('click', function () {
-      if (!validateRequired()) return;
       const d = collectFormData();
+      if (!validateRequired(d)) return;
+
       const subject = encodeURIComponent(`Stamping Request — ${d.shop} — ${d.name}`);
       let body = `Request Stamping - Jackson Scales\n\n`;
       body += `Name: ${d.name}\n`;
       body += `Shop: ${d.shop}\n`;
       body += `Phone: ${d.phone}\n`;
       body += `Address: ${d.address}\n\n`;
-      body += `Old certificate: ${d.oldCertName}\n`;
-      body += `Stamping plate: ${d.plateName}\n\n`;
       if (d.notes) body += `Notes: ${d.notes}\n\n`;
-      if (gstText) body += `${gstText}\n\n`;
       body += `Please contact me to confirm scheduling.`;
 
       const mailto = `mailto:${encodeURIComponent(businessEmail)}?subject=${subject}&body=${encodeURIComponent(body)}`;
-      // Open mail client
       window.location.href = mailto;
-    });
-
-    // Optional: handle server submit (default form POST)
-    // If you want to accept attachments directly, configure the <form action="..."> to your Formspree/Netlify endpoint
-    // and the browser will POST multipart/form-data including files.
-    document.getElementById('stampingForm').addEventListener('submit', function(e){
-      // If form action is empty (no server configured), prevent submit and inform user
-      const form = e.target;
-      if (!form.action || form.action.trim() === '') {
-        e.preventDefault();
-        if (!validateRequired()) return;
-        alert('No server configured for direct upload. To receive attachments automatically, set up a form endpoint (Formspree, Netlify Forms) and add its URL to the form "action" attribute. Meanwhile, you can use WhatsApp or Email and attach files there manually.');
-      } else {
-        // allow default submit to server
-      }
     });
   </script>
 </body>
