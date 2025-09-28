@@ -3,258 +3,265 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Jackson Scales — Products & Calculator</title>
-  <meta name="description" content="Products catalog — Jackson Scales. Browse bench scales, platform scales and calculate price instantly." />
+  <title>Jackson Scales — Products</title>
+  <meta name="description" content="Products catalog — Jackson Scales." />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --accent:#0b63ff;
-      --accent-dark:#084fc4;
-      --muted:#6d6d72;
-      --bg:#f3f6fb;
-      --card:#fff;
-      --radius:14px;
-      --shadow:0 10px 30px rgba(16,24,40,0.06);
-      --maxw:1100px;
-    }
+    :root{--accent:#0b63ff;--muted:#6d6d72;--bg:#f3f6fb;--card:#fff;--radius:14px;--shadow:0 10px 30px rgba(16,24,40,0.06);--maxw:1200px;--brand-red:#e63946;}
     *{box-sizing:border-box}
     body{margin:0;font-family:Inter,system-ui,Arial;background:var(--bg);color:#111}
     .wrap{max-width:var(--maxw);margin:28px auto;padding:18px}
-
-    /* Header */
-    header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
-    .logo{width:64px;height:64px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--muted);box-shadow:var(--shadow)}
-    h1{margin:0;font-size:22px;font-weight:800}
-    .tag{color:var(--muted);font-size:13px}
-    .top-actions{margin-left:auto;display:flex;gap:10px;flex-wrap:wrap}
-    .btn{display:inline-block;padding:8px 14px;border-radius:8px;text-decoration:none;font-weight:700;transition:background .2s}
+    header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+    .site-logo{width:64px;height:64px;object-fit:contain;border-radius:10px;background:#fff;padding:6px;box-shadow:var(--shadow)}
+    .brand-title .title{font-weight:800;font-size:20px;color:#0a2540}
+    .top-actions{margin-left:auto;display:flex;gap:10px;align-items:center}
+    .btn{display:inline-block;padding:8px 14px;border-radius:8px;text-decoration:none;font-weight:700}
     .btn-primary{background:var(--accent);color:#fff}
-    .btn-primary:hover{background:var(--accent-dark)}
-    .btn-light{background:#eee;color:#222}
-    .btn-light:hover{background:#ddd}
-
-    /* Categories */
-    .cat-header{margin-top:28px;margin-bottom:12px}
-    .cat-title{font-size:18px;font-weight:800;margin-bottom:4px}
-
-    /* Product grid */
-    .grid{display:grid;grid-template-columns:repeat(1,1fr);gap:16px}
-    @media(min-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}
-    @media(min-width:980px){.grid{grid-template-columns:repeat(4,1fr)}}
-
-    .card{background:var(--card);padding:14px;border-radius:var(--radius);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;min-height:320px;transition:transform .2s}
-    .card:hover{transform:translateY(-3px)}
-    .img-wrap{height:140px;background:#fafafa;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-    .img-wrap img{max-width:100%;max-height:100%;object-fit:contain;display:block}
-    .prod-name{font-weight:800;font-size:15px}
-    .spec{color:var(--muted);font-size:13px}
-    .price{font-weight:800;margin-top:6px;font-size:15px}
-    .controls{display:flex;gap:8px;align-items:center;margin-top:8px}
-    input.qty{width:68px;padding:6px;border-radius:6px;border:1px solid #ddd}
-
-    /* Thumbnails */
-    .thumbs{display:flex;gap:6px;margin-top:8px}
-    .thumbs img{width:46px;height:40px;object-fit:cover;border-radius:6px;cursor:pointer;border:2px solid transparent}
-    .thumbs img.active{border-color:var(--accent)}
-
-    /* Page grid */
-    .page-grid{display:grid;grid-template-columns:1fr;gap:16px}
-    @media(min-width:980px){.page-grid{grid-template-columns:2fr 360px}}
-
-    /* Calculator */
-    .calc{position:sticky;top:16px;background:#fff;padding:16px;border-radius:var(--radius);box-shadow:var(--shadow)}
-    .calc h3{margin:0 0 10px;font-size:18px}
-    .calc .line{display:flex;justify-content:space-between;margin:6px 0;font-size:14px}
-    .calc strong{font-size:15px}
-
-    footer{margin-top:24px;color:var(--muted);text-align:center;font-size:14px}
+    .btn-light{background:#fff;border:1px solid #eee}
+    .page-grid{display:grid;grid-template-columns:1fr;gap:18px}
+    @media(min-width:980px){ .page-grid{grid-template-columns:3fr 360px} }
+    .grid{display:grid;grid-template-columns:repeat(1,1fr);gap:20px}
+    @media(min-width:640px){ .grid{grid-template-columns:repeat(2,1fr)} }
+    @media(min-width:1100px){ .grid{grid-template-columns:repeat(3,1fr)} }
+    .product-card{background:var(--card);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;min-height:360px}
+    .product-image{flex:1 1 auto;background:#fff;display:flex;align-items:center;justify-content:center;min-height:260px;overflow:hidden}
+    .product-image img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+    .product-card:hover .product-image img{transform:scale(1.03)}
+    .product-footer{background:var(--brand-red);color:#fff;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .pname{font-weight:800;letter-spacing:0.3px;font-size:16px;text-transform:uppercase}
+    .view-link{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:700}
+    .arrow{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-weight:800}
+    .info-card{background:var(--card);padding:16px;border-radius:12px;box-shadow:var(--shadow)}
+    footer{margin-top:26px;color:var(--muted);text-align:center;font-size:14px}
   </style>
 </head>
 <body>
   <div class="wrap">
+
+    <!-- EMBEDDED PRODUCTS JSON (edit this block if you want offline editing) -->
+    <script id="productsJson" type="application/json">
+[
+  {
+    "id": "MACRO-MINI-10-4V",
+    "category": "10-20",
+    "name": "Macro Mini 10kg",
+    "body": "Plastic, rechargeable",
+    "lead": "Compact kitchen & retail scale with rechargeable battery and clear green display.",
+    "imgs": ["macro mini 10kg 1.jpeg", "macro mini 10kg 2.jpeg"],
+    "brochure": "macro-mini-10-brochure.pdf",
+    "features": [
+      {"title":"Water Resistant","text":"Fully stainless-steel water resistant (where applicable).","icon":"⚙️"},
+      {"title":"Rechargeable","text":"Long battery life with onboard charging.","icon":"🔋"},
+      {"title":"Digital Display","text":"Bright green LED / LCD display for easy reading.","icon":"🔍"}
+    ],
+    "specs": {
+      "Model": "MACRO-MINI-10-4V",
+      "Description": "Digital bench scale for kitchen and retail",
+      "Weight sensor": "Load cell",
+      "Processor": "Microcomputer",
+      "No. of keys": "6 keys",
+      "Display type": "Green LED",
+      "Display size": "14 mm",
+      "Display digits": "6 digits",
+      "Calibration method": "Software calibration",
+      "Power supply": "4V rechargeable",
+      "Power consumption": "6W"
+    }
+  },
+  {
+    "id": "MINI-10-4V",
+    "category": "10-20",
+    "name": "Mini 10kg (4V)",
+    "body": "Plastic, rechargeable • Compact",
+    "lead": "Lightweight model designed for portability and quick weighing tasks.",
+    "imgs": ["mini1.png","mini2.png"],
+    "brochure": "",
+    "features": [
+      {"title":"Portable","text":"Easy to carry and set up.","icon":"🎒"},
+      {"title":"User Friendly","text":"Simple buttons and clear display.","icon":"👍"}
+    ],
+    "specs": {
+      "Model": "MINI-10-4V",
+      "Description": "Compact digital scale",
+      "Weight sensor": "Load cell",
+      "Processor": "Microcontroller",
+      "No. of keys": "5 keys",
+      "Display type": "LED",
+      "Display size": "12 mm",
+      "Display digits": "6 digits",
+      "Calibration method": "Software",
+      "Power supply": "4V rechargeable",
+      "Power consumption": "5W"
+    }
+  },
+  {
+    "id": "PLT-30-SS",
+    "category": "30-100",
+    "name": "30kg Platform (SS)",
+    "body": "Stainless steel body • Hygienic",
+    "lead": "Durable stainless-steel platform scale with optional pole-mounted display — hygienic design for food & wet environments.",
+    "imgs": ["plt-30-ss.jpg"],
+    "brochure": "plt-30-ss-brochure.pdf",
+    "features": [
+      {"title":"Hygienic","text":"Stainless steel body for easy cleaning","icon":"🧼"},
+      {"title":"Optional Pole","text":"Display on pole or remote display available","icon":"📶"},
+      {"title":"Heavy Duty","text":"Built for continuous commercial use","icon":"🏭"}
+    ],
+    "specs": {
+      "Model": "PLT-30-SS",
+      "Description": "30kg stainless-steel platform scale",
+      "Weight sensor": "High-precision load cell",
+      "Processor": "Embedded controller",
+      "No. of keys": "4 keys",
+      "Display type": "LED / LCD",
+      "Display size": "20 mm",
+      "Display digits": "6 digits",
+      "Calibration method": "Manual / software",
+      "Power supply": "230V AC / rechargeable option",
+      "Power consumption": "8W"
+    }
+  },
+  {
+    "id": "PLT-100",
+    "category": "100+",
+    "name": "100kg Platform Scale",
+    "body": "Industrial platform • Heavy duty",
+    "lead": "Full-size platform scale for warehouses and industrial weighing. Strong load cell and optional remote display.",
+    "imgs": ["plt-100.jpg"],
+    "brochure": "",
+    "features": [
+      {"title":"Industrial","text":"Designed for warehouse and heavy loads","icon":"🏭"},
+      {"title":"Accurate","text":"High-accuracy load cell","icon":"📏"}
+    ],
+    "specs": {
+      "Model": "PLT-100",
+      "Description": "100kg platform scale",
+      "Weight sensor": "Industrial load cell",
+      "Processor": "Embedded controller",
+      "No. of keys": "4 keys",
+      "Display type": "Remote LED/LCD",
+      "Display size": "20 mm",
+      "Display digits": "6 digits",
+      "Calibration method": "Manual/software",
+      "Power supply": "230V AC",
+      "Power consumption": "12W"
+    }
+  }
+]
+    </script>
+    <!-- END EMBEDDED JSON -->
+
     <header>
-      <div class="logo">JS</div>
-      <div>
-        <h1>Jackson Scales — Products</h1>
-        <div class="tag">Pick models, set quantities and calculate your total instantly</div>
-      </div>
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none">
+        <img class="site-logo" src="logo.png" alt="Jackson Scales logo">
+        <div class="brand-title">
+          <div class="title">Jackson Scales</div>
+          <div class="tag" style="color:var(--muted);font-size:13px">Government Licensed • Stamping & Trusted Service</div>
+        </div>
+      </a>
+
       <div class="top-actions">
         <a class="btn btn-light" href="index.html">Back</a>
-        <a id="whatsappTop" class="btn btn-primary" href="#" target="_blank">Order via WhatsApp</a>
+        <a id="whatsappTop" class="btn btn-primary" href="#" target="_blank">Enquire via WhatsApp</a>
       </div>
     </header>
 
     <div class="page-grid">
-      <!-- PRODUCTS -->
       <main>
-        <!-- Category: 10-20kg -->
         <section>
-          <div class="cat-header">
-            <div class="cat-title">10 — 20 kg Scales</div>
-            <div class="tag">Domestic & Commercial bench scales</div>
+          <div style="margin-bottom:12px">
+            <div style="font-size:18px;font-weight:800">10 — 20 kg Scales</div>
+            <div style="color:var(--muted);font-size:13px">Domestic & commercial bench scales</div>
           </div>
           <div class="grid" id="grid-10-20"></div>
         </section>
 
-        <!-- Category: 30-100kg -->
-        <section>
-          <div class="cat-header">
-            <div class="cat-title">30 — 100 kg Scales</div>
-            <div class="tag">Heavy bench / platform options</div>
+        <section style="margin-top:26px">
+          <div style="margin-bottom:12px">
+            <div style="font-size:18px;font-weight:800">30 — 100 kg Scales</div>
+            <div style="color:var(--muted);font-size:13px">Commercial bench & platform options</div>
           </div>
           <div class="grid" id="grid-30-100"></div>
         </section>
 
-        <!-- Category: 100kg+ -->
-        <section>
-          <div class="cat-header">
-            <div class="cat-title">100 kg — 1 ton & above</div>
-            <div class="tag">Platform & industrial scales</div>
+        <section style="margin-top:26px">
+          <div style="margin-bottom:12px">
+            <div style="font-size:18px;font-weight:800">100 kg — 1 ton & above</div>
+            <div style="color:var(--muted);font-size:13px">Heavy-duty platform & industrial scales</div>
           </div>
           <div class="grid" id="grid-100plus"></div>
         </section>
       </main>
 
-      <!-- ORDER SIDEBAR -->
       <aside>
-        <div class="calc" aria-live="polite">
-          <h3>Order Summary</h3>
-          <div class="line"><div>Subtotal</div><div id="subtotal">₹0.00</div></div>
-          <div class="line"><div>Extras</div><div id="extras">₹0.00</div></div>
-          <div class="line"><div>GST (18%)</div><div id="tax">₹0.00</div></div>
-          <hr style="border:none;border-top:1px solid #eee;margin:8px 0">
-          <div class="line"><strong>Total</strong><strong id="total">₹0.00</strong></div>
-
-          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
-            <a id="whatsappBtn" class="btn btn-primary" href="#" target="_blank">WhatsApp</a>
-            <a id="callBtn" class="btn btn-light" href="#">Call</a>
-            <a id="emailBtn" class="btn btn-light" href="#">Email</a>
+        <div class="info-card">
+          <h3 style="margin:0 0 8px">Need help choosing?</h3>
+          <p style="color:var(--muted)">Call or WhatsApp and our technicians will advise the best model for your use case.</p>
+          <p style="margin-top:10px"><strong>Phone:</strong> <a href="tel:+919688106228">+91 96881 06228</a></p>
+          <p><strong>Email:</strong> <a href="mailto:jacksonscalesservice@gmail.com">jacksonscalesservice@gmail.com</a></p>
+          <div style="margin-top:12px;display:flex;gap:8px">
+            <a id="enquireWhats" class="btn btn-primary" href="#" target="_blank">WhatsApp</a>
+            <a id="enquireMail" class="btn btn-light" href="#">Email</a>
           </div>
         </div>
       </aside>
     </div>
 
-    <footer>
-      © <span id="year"></span> Jackson Scales — Licensed Weighing Scale Stamping & Service
-    </footer>
+    <footer>© <span id="year"></span> Jackson Scales — Licensed Weighing Scale Stamping & Service</footer>
   </div>
 
   <script>
-    /******** CONFIG ********/
-    const businessPhone = "+919688106228";
-    const businessWhatsAppNumber = "919688106228"; // no +
+    // Use embedded JSON rather than fetch so file:// works
+    const businessWhatsAppNumber = "919688106228";
     const contactEmail = "jacksonscalesservice@gmail.com";
-    const gstPercent = 18;
 
-    const productsData = [
-      { id:"MACRO-MINI-10-4V", category:"10-20", name:"Macro Mini 10kg (4V)", body:"Plastic, rechargeable", volts:"4V", price:1800, imgs:["macro mini 10kg 1.jpeg","macro mini 10kg 2.jpeg"] },
-      { id:"MINI-10-4V", category:"10-20", name:"Mini 10kg (4V)", body:"Plastic, rechargeable", volts:"4V", price:2800, imgs:["mini1.png","mini2.png"] },
-      { id:"MINI-10-6V", category:"10-20", name:"Mini 10kg (6V)", body:"Plastic, rechargeable", volts:"6V", price:3300, imgs:[] },
-      { id:"PLT-30-MS", category:"30-100", name:"30kg Platform (MS Body)", body:"MS body", volts:"-", price:4500, imgs:[] },
-      { id:"PLT-30-SS", category:"30-100", name:"30kg Platform (SS Body)", body:"SS body", volts:"-", price:6500, imgs:[] },
-      { id:"PLT-100", category:"100+", name:"100kg Platform Scale", body:"Heavy duty", volts:"-", price:12000, imgs:[] }
-    ];
+    let data;
+    try {
+      data = JSON.parse(document.getElementById('productsJson').textContent);
+    } catch (err) {
+      console.error('Failed to parse embedded products JSON', err);
+      alert('Unable to load products. Please check embedded JSON.');
+      data = [];
+    }
 
-    /******** RENDER ********/
-    function createCardHTML(p){
-      const mainImg = (p.imgs && p.imgs.length) ? p.imgs[0] : null;
-      const imgHtml = mainImg ? `<img src="${mainImg}" alt="${p.name}">` : `<div style="color:var(--muted)">No Image</div>`;
-      let thumbsHtml = '';
-      if (p.imgs && p.imgs.length){
-        thumbsHtml = '<div class="thumbs">';
-        p.imgs.forEach((f,i)=>{
-          thumbsHtml += `<img src="${f}" data-id="${p.id}" data-src="${f}" class="${i===0?'active':''}" alt="thumb">`;
-        });
-        thumbsHtml += '</div>';
-      }
+    // group by category
+    const byCat = { "10-20": [], "30-100": [], "100+": [] };
+    data.forEach(p => {
+      if (byCat[p.category]) byCat[p.category].push(p); else byCat["100+"].push(p);
+    });
+
+    function makeCard(p){
+      const img = (p.imgs && p.imgs.length) ? p.imgs[0] : 'placeholder.png';
       return `
-        <div class="card" data-id="${p.id}" data-price="${p.price}">
-          <div class="img-wrap">${imgHtml}</div>
-          <div class="prod-name">${p.name}</div>
-          <div class="spec">${p.body} ${p.volts ? '• '+p.volts:''}</div>
-          <div class="price">₹${p.price.toLocaleString()}</div>
-          ${thumbsHtml}
-          <div class="controls">
-            <label style="font-size:13px;color:var(--muted)">Qty</label>
-            <input class="qty" type="number" min="0" value="0" data-id="${p.id}">
-            <button class="btn btn-light add-one" data-id="${p.id}" style="margin-left:auto">+1</button>
+        <article class="product-card" data-id="${p.id}">
+          <div class="product-image"><img src="${img}" alt="${p.name}"></div>
+          <div class="product-footer">
+            <div style="flex:1">
+              <div class="pname">${p.name}</div>
+              <div style="font-size:13px;opacity:0.95">${p.body}</div>
+            </div>
+            <div style="flex:0 0 auto;display:flex;align-items:center;gap:12px">
+              <a class="view-link" href="product_detail.html?id=${encodeURIComponent(p.id)}">View Product</a>
+              <div class="arrow">›</div>
+            </div>
           </div>
-        </div>
+        </article>
       `;
     }
 
-    function renderProducts(){
-      const g10=document.getElementById('grid-10-20');
-      const g30=document.getElementById('grid-30-100');
-      const g100=document.getElementById('grid-100plus');
-      [g10,g30,g100].forEach(g=>g.innerHTML='');
-      productsData.forEach(p=>{
-        const html=createCardHTML(p);
-        if(p.category==='10-20') g10.insertAdjacentHTML('beforeend',html);
-        else if(p.category==='30-100') g30.insertAdjacentHTML('beforeend',html);
-        else g100.insertAdjacentHTML('beforeend',html);
-      });
-      document.querySelectorAll('.qty').forEach(el=>el.addEventListener('input',calculate));
-      document.querySelectorAll('.add-one').forEach(btn=>{
-        btn.addEventListener('click',()=>{
-          const q=document.querySelector(`.qty[data-id="${btn.dataset.id}"]`);
-          q.value=Math.max(0,parseInt(q.value||0)+1);calculate();
-        });
-      });
-      document.querySelectorAll('.thumbs img').forEach(th=>{
-        th.addEventListener('click',function(){
-          const card=th.closest('.card');
-          const imgWrap=card.querySelector('.img-wrap');
-          let mainImg=imgWrap.querySelector('img');
-          if(!mainImg){imgWrap.innerHTML=`<img src="${th.dataset.src}" alt="">`;}
-          else{mainImg.src=th.dataset.src;}
-          card.querySelectorAll('.thumbs img').forEach(t=>t.classList.remove('active'));
-          th.classList.add('active');
-        });
-      });
-    }
+    document.getElementById('grid-10-20').innerHTML = byCat["10-20"].map(makeCard).join('');
+    document.getElementById('grid-30-100').innerHTML = byCat["30-100"].map(makeCard).join('');
+    document.getElementById('grid-100plus').innerHTML = byCat["100+"].map(makeCard).join('');
 
-    /******** CALC ********/
-    function calculate(){
-      let subtotal=0; let extras=0;
-      document.querySelectorAll('.qty').forEach(qe=>{
-        const qty=Math.max(0,parseInt(qe.value)||0);
-        if(!qty) return;
-        const prod=productsData.find(p=>p.id===qe.dataset.id);
-        if(!prod) return;
-        subtotal+=prod.price*qty;
-      });
-      const taxable=subtotal+extras;
-      const tax=+(taxable*gstPercent/100).toFixed(2);
-      const total=+(taxable+tax).toFixed(2);
-      document.getElementById('subtotal').textContent='₹'+subtotal.toLocaleString();
-      document.getElementById('extras').textContent='₹'+extras.toLocaleString();
-      document.getElementById('tax').textContent='₹'+tax.toLocaleString();
-      document.getElementById('total').textContent='₹'+total.toLocaleString();
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('whatsappTop').href = `https://wa.me/${businessWhatsAppNumber}`;
 
-      const lines=[];
-      document.querySelectorAll('.qty').forEach(qe=>{
-        const qty=Math.max(0,parseInt(qe.value)||0);
-        if(!qty) return;
-        const prod=productsData.find(p=>p.id===qe.dataset.id);
-        lines.push(`${prod.name} x ${qty} = ₹${(prod.price*qty).toFixed(2)}`);
-      });
-      lines.push(`Subtotal: ₹${subtotal.toFixed(2)}`);
-      lines.push(`GST (${gstPercent}%): ₹${tax.toFixed(2)}`);
-      lines.push(`Total: ₹${total.toFixed(2)}`);
-      const summary=lines.join('\\n');
-
-      const waText=encodeURIComponent(`Hello, I want to order:\\n${summary}\\n\\nName:\\nPhone:`);
-      document.getElementById('whatsappBtn').href=`https://wa.me/${businessWhatsAppNumber}?text=${waText}`;
-      document.getElementById('whatsappTop').href=`https://wa.me/${businessWhatsAppNumber}?text=${waText}`;
-      document.getElementById('callBtn').href=`tel:${businessPhone}`;
-      const mailBody=encodeURIComponent(`Order request:%0A${summary}%0A%0AName:%0APhone:%0AAddress:%0AComments:`);
-      document.getElementById('emailBtn').href=`mailto:${contactEmail}?subject=${encodeURIComponent('Order request')}&body=${mailBody}`;
-    }
-
-    renderProducts();
-    calculate();
-    document.getElementById('year').textContent=new Date().getFullYear();
+    document.getElementById('enquireWhats').addEventListener('click', e=>{
+      e.preventDefault(); window.open(`https://wa.me/${businessWhatsAppNumber}`,'_blank');
+    });
+    document.getElementById('enquireMail').addEventListener('click', e=>{
+      e.preventDefault(); location.href = `mailto:${contactEmail}`;
+    });
   </script>
 </body>
 </html>

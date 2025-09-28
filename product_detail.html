@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jackson Scales — Product Details</title>
+  <meta name="description" content="Product detail — Jackson Scales" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--accent:#0b63ff;--muted:#6d6d72;--bg:#f7f9fb;--card:#fff;--radius:12px;--shadow:0 12px 30px rgba(16,24,40,0.06);--maxw:1100px}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Arial;background:var(--bg);color:#111}
+    .wrap{max-width:var(--maxw);margin:28px auto;padding:18px}
+    header{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+    .site-logo{width:60px;height:60px;object-fit:contain;border-radius:10px;background:#fff;padding:6px;box-shadow:var(--shadow)}
+    .product-top{background:linear-gradient(180deg,#fff,#fbfdff);border-radius:12px;padding:22px;margin-bottom:18px;box-shadow:var(--shadow)}
+    .product-grid{display:grid;grid-template-columns:1fr;gap:18px}
+    @media(min-width:980px){ .product-grid{grid-template-columns:1fr 420px} }
+    .main-img{width:100%;height:420px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .main-img img{width:100%;height:100%;object-fit:contain}
+    .thumbs{display:flex;gap:10px;padding:12px;background:#fff;overflow:auto}
+    .thumbs img{width:86px;height:64px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent}
+    .thumbs img.active{border-color:var(--accent)}
+    .features{display:grid;grid-template-columns:repeat(1,1fr);gap:12px;margin-top:18px}
+    @media(min-width:680px){ .features{grid-template-columns:repeat(3,1fr)} }
+    .feat{background:#fff;padding:14px;border-radius:10px;box-shadow:var(--shadow);display:flex;gap:12px;align-items:center}
+    .feat .icon{width:48px;height:48px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;color:#ffd700;box-shadow:0 6px 14px rgba(0,0,0,0.04)}
+    .specs{margin-top:18px;background:#fff;border-radius:10px;box-shadow:var(--shadow);overflow:hidden}
+    table{width:100%;border-collapse:collapse}
+    td{padding:12px 14px;border-bottom:1px solid #eee;font-size:14px}
+    td:first-child{width:40%;color:var(--muted);font-weight:600}
+    .ctas{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+    .btn{padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:700}
+    .btn-primary{background:var(--accent);color:#fff}
+    .btn-light{background:#fff;border:1px solid #eee;color:#111}
+    footer{margin-top:22px;color:var(--muted);text-align:center;font-size:14px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <!-- EMBEDDED PRODUCTS JSON (same content as in products.html) -->
+    <script id="productsJson" type="application/json">
+[
+  {
+    "id": "MACRO-MINI-10-4V",
+    "category": "10-20",
+    "name": "Macro Mini 10kg",
+    "body": "Plastic, rechargeable",
+    "lead": "Compact kitchen & retail scale with rechargeable battery and clear green display.",
+    "imgs": ["macro mini 10kg 1.jpeg", "macro mini 10kg 2.jpeg"],
+    "brochure": "macro-mini-10-brochure.pdf",
+    "features": [
+      {"title":"Water Resistant","text":"Fully stainless-steel water resistant (where applicable).","icon":"⚙️"},
+      {"title":"Rechargeable","text":"Long battery life with onboard charging.","icon":"🔋"},
+      {"title":"Digital Display","text":"Bright green LED / LCD display for easy reading.","icon":"🔍"}
+    ],
+    "specs": {
+      "Model": "MACRO-MINI-10-4V",
+      "Description": "Digital bench scale for kitchen and retail",
+      "Weight sensor": "Load cell",
+      "Processor": "Microcomputer",
+      "No. of keys": "6 keys",
+      "Display type": "Green LED",
+      "Display size": "14 mm",
+      "Display digits": "6 digits",
+      "Calibration method": "Software calibration",
+      "Power supply": "4V rechargeable",
+      "Power consumption": "6W"
+    }
+  },
+  {
+    "id": "MINI-10-4V",
+    "category": "10-20",
+    "name": "Mini 10kg (4V)",
+    "body": "Plastic, rechargeable • Compact",
+    "lead": "Lightweight model designed for portability and quick weighing tasks.",
+    "imgs": ["mini1.png","mini2.png"],
+    "brochure": "",
+    "features": [
+      {"title":"Portable","text":"Easy to carry and set up.","icon":"🎒"},
+      {"title":"User Friendly","text":"Simple buttons and clear display.","icon":"👍"}
+    ],
+    "specs": {
+      "Model": "MINI-10-4V",
+      "Description": "Compact digital scale",
+      "Weight sensor": "Load cell",
+      "Processor": "Microcontroller",
+      "No. of keys": "5 keys",
+      "Display type": "LED",
+      "Display size": "12 mm",
+      "Display digits": "6 digits",
+      "Calibration method": "Software",
+      "Power supply": "4V rechargeable",
+      "Power consumption": "5W"
+    }
+  },
+  {
+    "id": "PLT-30-SS",
+    "category": "30-100",
+    "name": "30kg Platform (SS)",
+    "body": "Stainless steel body • Hygienic",
+    "lead": "Durable stainless-steel platform scale with optional pole-mounted display — hygienic design for food & wet environments.",
+    "imgs": ["plt-30-ss.jpg"],
+    "brochure": "plt-30-ss-brochure.pdf",
+    "features": [
+      {"title":"Hygienic","text":"Stainless steel body for easy cleaning","icon":"🧼"},
+      {"title":"Optional Pole","text":"Display on pole or remote display available","icon":"📶"},
+      {"title":"Heavy Duty","text":"Built for continuous commercial use","icon":"🏭"}
+    ],
+    "specs": {
+      "Model": "PLT-30-SS",
+      "Description": "30kg stainless-steel platform scale",
+      "Weight sensor": "High-precision load cell",
+      "Processor": "Embedded controller",
+      "No. of keys": "4 keys",
+      "Display type": "LED / LCD",
+      "Display size": "20 mm",
+      "Display digits": "6 digits",
+      "Calibration method": "Manual / software",
+      "Power supply": "230V AC / rechargeable option",
+      "Power consumption": "8W"
+    }
+  },
+  {
+    "id": "PLT-100",
+    "category": "100+",
+    "name": "100kg Platform Scale",
+    "body": "Industrial platform • Heavy duty",
+    "lead": "Full-size platform scale for warehouses and industrial weighing. Strong load cell and optional remote display.",
+    "imgs": ["plt-100.jpg"],
+    "brochure": "",
+    "features": [
+      {"title":"Industrial","text":"Designed for warehouse and heavy loads","icon":"🏭"},
+      {"title":"Accurate","text":"High-accuracy load cell","icon":"📏"}
+    ],
+    "specs": {
+      "Model": "PLT-100",
+      "Description": "100kg platform scale",
+      "Weight sensor": "Industrial load cell",
+      "Processor": "Embedded controller",
+      "No. of keys": "4 keys",
+      "Display type": "Remote LED/LCD",
+      "Display size": "20 mm",
+      "Display digits": "6 digits",
+      "Calibration method": "Manual/software",
+      "Power supply": "230V AC",
+      "Power consumption": "12W"
+    }
+  }
+]
+    </script>
+    <!-- END EMBEDDED JSON -->
+
+    <header>
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+        <img class="site-logo" src="logo.png" alt="Jackson Scales">
+        <div>
+          <div style="font-weight:800;font-size:18px">Jackson Scales</div>
+          <div style="color:var(--muted);font-size:13px">Government Licensed • Stamping & Trusted Service</div>
+        </div>
+      </a>
+    </header>
+
+    <main>
+      <div class="product-top">
+        <div id="titleLead">
+          <div class="title" id="prodTitle" style="font-size:22px;font-weight:800;margin-bottom:6px">Product Title</div>
+          <p class="lead" id="prodLead" style="color:var(--muted);margin:0 0 12px">Lead paragraph</p>
+        </div>
+
+        <div class="product-grid">
+          <div>
+            <div class="gallery">
+              <div class="main-img" id="mainImgWrap"><img id="mainImg" src="" alt="Product image"></div>
+              <div class="thumbs" id="thumbs"></div>
+            </div>
+
+            <h3 style="margin-top:18px">Salient Features</h3>
+            <div class="features" id="features"></div>
+
+            <div class="specs">
+              <table id="specsTable"></table>
+            </div>
+          </div>
+
+          <aside>
+            <div style="background:#fff;padding:18px;border-radius:12px;box-shadow:var(--shadow)">
+              <h3 id="sideTitle">Quick Info</h3>
+              <p style="color:var(--muted)" id="sideDesc">Short summary</p>
+              <div style="margin-top:12px">
+                <strong>Model: </strong><span id="sideModel"></span><br>
+                <strong>Category: </strong><span id="sideCategory"></span><br>
+                <strong>Body: </strong><span id="sideBody"></span><br>
+              </div>
+
+              <div class="ctas">
+                <a id="waBtn" class="btn btn-primary" href="#" target="_blank">Send Enquiry (WhatsApp)</a>
+                <a id="pdfBtn" class="btn btn-light" href="#" download>Download Brochure</a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <footer>© <span id="year"></span> Jackson Scales — Licensed Weighing Scale Stamping & Service</footer>
+  </div>
+
+  <script>
+    const businessWhatsAppNumber = "919688106228"; // update if needed
+    const contactEmail = "jacksonscalesservice@gmail.com";
+
+    function getIdFromQuery(){
+      const q = new URLSearchParams(window.location.search);
+      return q.get('id');
+    }
+
+    let products;
+    try {
+      products = JSON.parse(document.getElementById('productsJson').textContent);
+    } catch (err) {
+      console.error('Failed to parse embedded products JSON', err);
+      alert('Failed to load product data. Check embedded JSON in this file.');
+      products = [];
+    }
+
+    const pid = getIdFromQuery();
+    const product = products.find(p => p.id === pid);
+
+    function render(product){
+      if(!product){
+        document.getElementById('prodTitle').textContent = 'Product not found';
+        document.getElementById('prodLead').textContent = 'Returning to products...';
+        setTimeout(()=> location.href='products.html', 3000);
+        return;
+      }
+      document.getElementById('prodTitle').textContent = product.name;
+      document.getElementById('prodLead').textContent = product.lead || '';
+
+      const mainImg = document.getElementById('mainImg');
+      const thumbs = document.getElementById('thumbs');
+      thumbs.innerHTML = '';
+      if(product.imgs && product.imgs.length){
+        mainImg.src = product.imgs[0];
+        product.imgs.forEach((src,i)=>{
+          const img = document.createElement('img');
+          img.src = src;
+          if(i===0) img.classList.add('active');
+          img.addEventListener('click', ()=> {
+            mainImg.src = src;
+            thumbs.querySelectorAll('img').forEach(t=>t.classList.remove('active'));
+            img.classList.add('active');
+          });
+          thumbs.appendChild(img);
+        });
+      } else {
+        mainImg.src = 'placeholder.png';
+        thumbs.innerHTML = '<div style="color:var(--muted)">No images</div>';
+      }
+
+      // features
+      const featuresWrap = document.getElementById('features');
+      featuresWrap.innerHTML = '';
+      if(product.features && product.features.length){
+        product.features.forEach(f=>{
+          const d = document.createElement('div');
+          d.className = 'feat';
+          d.innerHTML = `<div class="icon">${f.icon || '★'}</div><div><h4 style="margin:0 0 6px">${f.title}</h4><p style="margin:0;color:var(--muted);font-size:13px">${f.text}</p></div>`;
+          featuresWrap.appendChild(d);
+        });
+      }
+
+      // specs
+      const table = document.getElementById('specsTable');
+      table.innerHTML = '';
+      if(product.specs){
+        for(const [k,v] of Object.entries(product.specs)){
+          const row = document.createElement('tr');
+          row.innerHTML = `<td>${k}</td><td>${v}</td>`;
+          table.appendChild(row);
+        }
+      }
+
+      document.getElementById('sideModel').textContent = product.specs && product.specs.Model ? product.specs.Model : product.id;
+      document.getElementById('sideCategory').textContent = product.category || '';
+      document.getElementById('sideBody').textContent = product.body || '';
+      document.getElementById('sideTitle').textContent = product.name;
+      document.getElementById('sideDesc').textContent = product.lead || '';
+
+      const waMsg = encodeURIComponent(`Hello, I want to enquire about: ${product.name}\nModel: ${document.getElementById('sideModel').textContent}\nPlease share availability and details.\n\nName:\nPhone:`);
+      document.getElementById('waBtn').href = `https://wa.me/${businessWhatsAppNumber}?text=${waMsg}`;
+
+      if(product.brochure){
+        document.getElementById('pdfBtn').href = product.brochure;
+        document.getElementById('pdfBtn').style.display = 'inline-block';
+      } else {
+        document.getElementById('pdfBtn').style.display = 'none';
+      }
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+    render(product);
+  </script>
+</body>
+</html>
